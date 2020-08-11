@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "df67356a-3fc5-4434-8d5d-10906b0e976b",
+		"name": "API_SWAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://swapi.dev/api/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44d870f7-aea3-4300-bdc7-f0bbe0e1d485",
+						"exec": [
+							"//1.correct response format JSON",
+							"pm.test(\"correct response format JSON\",function() {",
+							"    pm.response.to.have.jsonBody()",
+							"});",
+							"",
+							"//2. we have all the declared fields in the response",
+							"pm.test(\"check that we have all the declared fields\",function() {",
+							"const jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property(\"people\");",
+							"   pm.expect(jsonData).to.have.property(\"planets\");",
+							"   pm.expect(jsonData).to.have.property(\"films\");",
+							"   pm.expect(jsonData).to.have.property(\"species\");",
+							"   pm.expect(jsonData).to.have.property(\"vehicles\");",
+							"   pm.expect(jsonData).to.have.property(\"starships\");",
+							"});",
+							"",
+							"//3. field value is not null",
+							"pm.test(\"check if value null\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.people).not.equal(null); ",
+							"    pm.expect(jsonData.planets).not.equal(null); ",
+							"});",
+							"",
+							"//4. check value is not empty",
+							"pm.test(\"check value is not empty\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.people).not.equal(\"\"); ",
+							"    pm.expect(jsonData.planets).not.equal(null); ",
+							"});",
+							"",
+							"// 5.check if field corresponds to a specific value",
+							"pm.test(\"check if field corresponds to a specific value\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.people).to.equal(\"http://swapi.dev/api/people/\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
